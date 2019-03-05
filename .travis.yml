@@ -1,3 +1,5 @@
 language: java
 script:
 - cd tau; mvn test
+- cd ..
+- cd cars; mvn test
