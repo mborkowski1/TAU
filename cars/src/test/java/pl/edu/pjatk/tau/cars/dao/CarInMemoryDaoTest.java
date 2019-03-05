@@ -8,8 +8,7 @@ import pl.edu.pjatk.tau.cars.domain.Car;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class CarInMemoryDaoTest {
@@ -35,6 +34,12 @@ public class CarInMemoryDaoTest {
         carDao.save(car);
         assertEquals(3L, carDao.cars.get(2).getId().longValue());
         assertEquals(3, carDao.cars.size());
+    }
+
+    @Test
+    public void gettingAllCarsTest() {
+        assertArrayEquals(carDao.cars.toArray(), carDao.getAll().toArray());
+        assertEquals(carDao.cars.size(), carDao.getAll().size());
     }
 
 }

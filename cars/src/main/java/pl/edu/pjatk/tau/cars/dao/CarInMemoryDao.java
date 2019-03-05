@@ -9,6 +9,11 @@ public class CarInMemoryDao implements Dao<Car> {
     protected List<Car> cars;
 
     @Override
+    public List<Car> getAll() {
+        return cars;
+    }
+
+    @Override
     public void save(Car o) {
         cars.add(o);
     }
