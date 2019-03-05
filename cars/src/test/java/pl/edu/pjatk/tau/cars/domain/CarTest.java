@@ -19,9 +19,15 @@ public class CarTest {
     public void carGettersAndSettersTest() {
         Car car = new Car();
         car.setId(1L);
+        car.setBrand("Audi");
         car.setModel("A4");
-        assertEquals(1, car.getId());
+        car.setMileage(10000);
+        car.setManufactureYear(2018);
+        assertEquals(1L, car.getId().longValue());
+        assertEquals("Audi", car.getBrand());
         assertEquals("A4", car.getModel());
+        assertEquals(10000, car.getMileage());
+        assertEquals(2018, car.getManufactureYear());
     }
 
 }
