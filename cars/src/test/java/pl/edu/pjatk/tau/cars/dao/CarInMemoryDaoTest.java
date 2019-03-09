@@ -36,10 +36,28 @@ public class CarInMemoryDaoTest {
         assertEquals(3, carDao.cars.size());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void savingExistsTest() {
+        Car car = new Car(1L, "Audi", "A6", 2018, 15000);
+        carDao.save(car);
+    }
+
     @Test
     public void gettingAllCarsTest() {
         assertArrayEquals(carDao.cars.toArray(), carDao.getAll().toArray());
         assertEquals(carDao.cars.size(), carDao.getAll().size());
+    }
+
+    @Test
+    public void gettingByIdTest() {
+        Car car = new Car(3L, "Jaguar", "XF", 2019, 5000);
+        carDao.save(car);
+        assertEquals(car, carDao.getById(3L).get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void gettingExistsTest() {
+        carDao.getById(3L);
     }
 
 }
