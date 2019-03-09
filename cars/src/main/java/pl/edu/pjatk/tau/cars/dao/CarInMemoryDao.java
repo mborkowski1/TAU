@@ -28,4 +28,11 @@ public class CarInMemoryDao implements Dao<Car> {
         cars.add(o);
     }
 
+    @Override
+    public void update(Car o) throws IllegalArgumentException {
+        if (cars.stream().noneMatch(car -> car.getId().equals(o.getId())))
+            throw new IllegalArgumentException("Car not exists");
+        cars.add(o.getId().intValue() - 1, o);
+    }
+
 }
