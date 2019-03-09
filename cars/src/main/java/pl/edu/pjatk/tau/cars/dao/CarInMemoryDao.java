@@ -35,4 +35,10 @@ public class CarInMemoryDao implements Dao<Car> {
         cars.add(o.getId().intValue() - 1, o);
     }
 
+    @Override
+    public void delete(Car o) {
+        int id = o.getId().intValue();
+        cars.remove(id);
+    }
+
 }

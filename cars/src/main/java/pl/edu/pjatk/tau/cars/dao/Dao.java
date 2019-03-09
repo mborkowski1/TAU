@@ -9,5 +9,6 @@ public interface Dao<T> {
     Optional<T> getById(Long id);
     void save(T o);
     void update(T o);
+    void delete(T o);
 
 }

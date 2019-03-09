@@ -57,6 +57,13 @@ public class CarInMemoryDaoTest {
     }
 
     @Test
+    public void deletingTest() {
+        Car car = carDao.getById(1L).get();
+        carDao.delete(car);
+        assertEquals(1, carDao.cars.size());
+    }
+
+    @Test
     public void gettingAllCarsTest() {
         assertArrayEquals(carDao.cars.toArray(), carDao.getAll().toArray());
         assertEquals(carDao.cars.size(), carDao.getAll().size());
