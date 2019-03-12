@@ -44,7 +44,7 @@ public class CarInMemoryDaoTest {
 
     @Test
     public void updatingTest() {
-        Car car = carDao.getById(1L).get();
+        Car car = new Car(carDao.getById(1L).get());
         car.setMileage(20000);
         carDao.update(car);
         assertEquals(20000, carDao.getById(1L).get().getMileage());

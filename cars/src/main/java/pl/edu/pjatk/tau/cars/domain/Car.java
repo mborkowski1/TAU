@@ -10,6 +10,14 @@ public class Car {
 
     public Car() { }
 
+    public Car(Car car) {
+        id = car.id;
+        brand = car.brand;
+        model = car.model;
+        manufactureYear = car.manufactureYear;
+        mileage = car.mileage;
+    }
+    
     public Car(Long id, String brand, String model, int manufactureYear, int mileage) {
         this.id = id;
         this.brand = brand;
