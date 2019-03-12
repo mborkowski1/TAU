@@ -36,7 +36,9 @@ public class CarInMemoryDao implements Dao<Car> {
     }
 
     @Override
-    public void delete(Car o) {
+    public void delete(Car o) throws IllegalArgumentException {
+        if (cars.stream().noneMatch(car -> car.getId().equals(o.getId())))
+            throw new IllegalArgumentException("Car not exists");
         int id = o.getId().intValue();
         cars.remove(id);
     }

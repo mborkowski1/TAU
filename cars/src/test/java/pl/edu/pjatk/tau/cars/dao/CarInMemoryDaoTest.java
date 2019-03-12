@@ -63,6 +63,13 @@ public class CarInMemoryDaoTest {
         assertEquals(1, carDao.cars.size());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void deletingExistsTest() {
+        Car car = carDao.getById(3L).get();
+        carDao.delete(car);
+        assertEquals(1, carDao.cars.size());
+    }
+
     @Test
     public void gettingAllCarsTest() {
         assertArrayEquals(carDao.cars.toArray(), carDao.getAll().toArray());
