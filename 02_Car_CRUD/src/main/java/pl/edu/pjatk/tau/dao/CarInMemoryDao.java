@@ -1,6 +1,6 @@
-package pl.edu.pjatk.tau.cars.dao;
+package pl.edu.pjatk.tau.dao;
 
-import pl.edu.pjatk.tau.cars.domain.Car;
+import pl.edu.pjatk.tau.domain.Car;
 
 import java.util.List;
 import java.util.Optional;

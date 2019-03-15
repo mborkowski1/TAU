@@ -1,4 +1,4 @@
-package pl.edu.pjatk.tau.cars.domain;
+package pl.edu.pjatk.tau.domain;
 
 import static org.junit.Assert.*;
 
