@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class CarDaoTest {
@@ -21,10 +21,12 @@ public class CarDaoTest {
     public static String url = "jdbc:hsqldb:hsql://localhost/workdb";
 
     CarDao carDao;
+    List<Car> initialDatabaseState;
 
     @Before
     public void setup() throws SQLException {
         Connection connection = DriverManager.getConnection(url);
+        initialDatabaseState = new ArrayList<>();
         try {
             connection.createStatement()
             .executeUpdate("CREATE TABLE IF NOT EXISTS " +
@@ -59,6 +61,7 @@ public class CarDaoTest {
                 if (generatedKeys.next()) {
                     car.setId(generatedKeys.getLong(1));
                 }
+                initialDatabaseState.add(car);
             }
             catch (SQLException e) {
                 throw new IllegalStateException(e.getMessage());
@@ -92,6 +95,26 @@ public class CarDaoTest {
         car.setManufactureYear(2019);
         car.setMileage(1000);
         assertEquals(1, carDao.addCar(car));
+        initialDatabaseState.add(car);
+        assertThat(carDao.getAllCars(), equalTo(initialDatabaseState));
+    }
+
+    @Test
+    public void gettingAllTest() {
+        List<Car> retrievedCars = carDao.getAllCars();
+        assertThat(retrievedCars, equalTo(initialDatabaseState));
+    }
+
+    @Test
+    public void gettingByIdTest() throws SQLException {
+        Car car = initialDatabaseState.get(2);
+        assertEquals(car, carDao.getCarById(car.getId()));
+    }
+
+    @Test(expected = Exception.class)
+    public void gettingByIdSQLExceptionTest() throws Exception {
+        Car car = initialDatabaseState.get(3);
+        assertEquals(car, carDao.getCarById(car.getId()));
     }
 
 }
