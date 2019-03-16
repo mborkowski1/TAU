@@ -11,6 +11,7 @@ public interface CarDao {
     Connection getConnection();
     void setConnection(Connection connection) throws SQLException;
     int addCar(Car car);
+    int updateCar(Car car) throws SQLException;
     List<Car> getAllCars();
     Car getCarById(long id) throws SQLException;
 

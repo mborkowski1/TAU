@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
@@ -100,6 +100,21 @@ public class CarDaoTest {
     }
 
     @Test
+    public void updatingTest() throws SQLException {
+        Car car = new Car(initialDatabaseState.get(2));
+        car.setMileage(70000);
+        initialDatabaseState.set(2, car);
+        assertEquals(1, carDao.updateCar(car));
+        assertThat(carDao.getAllCars(), equalTo(initialDatabaseState));
+    }
+
+    @Test(expected = SQLException.class)
+    public void updatingSQLExceptionTest() throws SQLException {
+        Car car = new Car("Audi", "A4", 2014, 100000);
+        assertEquals(1, carDao.updateCar(car));
+    }
+
+    @Test
     public void gettingAllTest() {
         List<Car> retrievedCars = carDao.getAllCars();
         assertThat(retrievedCars, equalTo(initialDatabaseState));
@@ -112,7 +127,7 @@ public class CarDaoTest {
     }
 
     @Test(expected = Exception.class)
-    public void gettingByIdSQLExceptionTest() throws Exception {
+    public void gettingByIdExceptionTest() throws Exception {
         Car car = initialDatabaseState.get(3);
         assertEquals(car, carDao.getCarById(car.getId()));
     }
