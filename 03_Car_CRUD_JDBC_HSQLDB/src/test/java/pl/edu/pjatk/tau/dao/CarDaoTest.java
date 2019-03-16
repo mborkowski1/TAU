@@ -114,6 +114,15 @@ public class CarDaoTest {
         assertEquals(1, carDao.updateCar(car));
     }
 
+    @Test(expected = SQLException.class)
+    public void deletingTest() throws SQLException {
+        Car car = initialDatabaseState.get(2);
+        initialDatabaseState.remove(car);
+        assertEquals(1, carDao.deleteCar(car));
+        assertThat(carDao.getAllCars(), equalTo(initialDatabaseState));
+        assertNull(carDao.getCarById(car.getId()));
+    }
+
     @Test
     public void gettingAllTest() {
         List<Car> retrievedCars = carDao.getAllCars();
