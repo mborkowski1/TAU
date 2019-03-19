@@ -81,14 +81,24 @@ public class CarDaoJdbcImpl implements CarDao {
     }
 
     @Override
-    public int deleteCar(Car car) {
+    public int deleteCar(Car car) throws SQLException {
+        int count;
         try {
-            deleteCarPreparedStatement.setLong(1, car.getId());
-            return deleteCarPreparedStatement.executeUpdate();
+            if (car.getId() != null) {
+                deleteCarPreparedStatement.setLong(1, car.getId());
+            }
+            else {
+                deleteCarPreparedStatement.setLong(1, -1);
+            }
+            count = deleteCarPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            throw new IllegalStateException(e.getMessage());
+            throw new SQLException(e.getMessage());
         }
+        if (count == 1)
+            return count;
+        else
+            throw new SQLException("Car not found");
     }
 
     @Override

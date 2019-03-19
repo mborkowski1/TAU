@@ -114,13 +114,18 @@ public class CarDaoTest {
         assertEquals(1, carDao.updateCar(car));
     }
 
-    @Test(expected = SQLException.class)
+    @Test
     public void deletingTest() throws SQLException {
         Car car = initialDatabaseState.get(2);
         initialDatabaseState.remove(car);
         assertEquals(1, carDao.deleteCar(car));
         assertThat(carDao.getAllCars(), equalTo(initialDatabaseState));
-        assertNull(carDao.getCarById(car.getId()));
+    }
+
+    @Test(expected = SQLException.class)
+    public void deletingSQLExceptionTest() throws SQLException {
+        Car car = new Car("Audi", "A4", 2014, 100000);
+        carDao.deleteCar(car);
     }
 
     @Test
@@ -135,10 +140,9 @@ public class CarDaoTest {
         assertEquals(car, carDao.getCarById(car.getId()));
     }
 
-    @Test(expected = Exception.class)
-    public void gettingByIdExceptionTest() throws Exception {
-        Car car = initialDatabaseState.get(3);
-        assertEquals(car, carDao.getCarById(car.getId()));
+    @Test(expected = SQLException.class)
+    public void gettingByIdExceptionTest() throws SQLException {
+        Car car = carDao.getCarById(-1);
     }
 
 }
