@@ -31,6 +31,8 @@ public class CarDaoTest {
     PreparedStatement selectByIdStatementMock;
     @Mock
     PreparedStatement insertStatementMock;
+    @Mock
+    PreparedStatement updateStatementMock;
 
     abstract class AbstractResultSet implements ResultSet {
         int i;
@@ -50,7 +52,7 @@ public class CarDaoTest {
             if (columnLabel.equals("id"))
                 return initialDatabaseState.get(i-1).getId();
             else
-                throw new IllegalArgumentException(columnLabel + " column does not exists or does not store int value");
+                throw new IllegalArgumentException(columnLabel + " column does not exists or does not store long value");
         }
 
         @Override
@@ -80,6 +82,7 @@ public class CarDaoTest {
         when(connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car ORDER BY id")).thenReturn(selectAllStatementMock);
         when(connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car WHERE id = ?")).thenReturn(selectByIdStatementMock);
         when(connection.prepareStatement("INSERT INTO Car (brand, model, manufacture_year, mileage) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)).thenReturn(insertStatementMock);
+        when(connection.prepareStatement("UPDATE Car SET mileage = ? WHERE id = ?")).thenReturn(updateStatementMock);
         dao = new CarDaoJdbcImpl();
         dao.setConnection(connection);
     }
@@ -113,6 +116,19 @@ public class CarDaoTest {
         inOrder.verify(insertStatementMock, times(1)).setInt(3, 2019);
         inOrder.verify(insertStatementMock, times(1)).setInt(4, 1000);
         inOrder.verify(insertStatementMock).executeUpdate();
+    }
+
+    @Test
+    public void updatingTest() throws SQLException {
+        when(updateStatementMock.executeUpdate()).thenReturn(1);
+
+        Car car = initialDatabaseState.get(0);
+        car.setMileage(300000);
+        dao.updateCar(car);
+
+        verify(updateStatementMock, times(1)).setInt(1, 300000);
+        verify(updateStatementMock, times(1)).setLong(2, 1L);
+        verify(updateStatementMock).executeUpdate();
     }
 
     @Test

@@ -9,6 +9,7 @@ import java.util.List;
 public class CarDaoJdbcImpl implements CarDao {
 
     public PreparedStatement insertPreparedStatement;
+    public PreparedStatement updatePreparedStatement;
     public PreparedStatement getAllPreparedStatement;
     public PreparedStatement getCarPreparedStatement;
     Connection connection;
@@ -24,6 +25,7 @@ public class CarDaoJdbcImpl implements CarDao {
         insertPreparedStatement = connection.prepareStatement("INSERT INTO Car (brand, model, manufacture_year, mileage) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         getAllPreparedStatement = connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car ORDER BY id");
         getCarPreparedStatement = connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car WHERE id = ?");
+        updatePreparedStatement = connection.prepareStatement("UPDATE Car SET mileage = ? WHERE id = ?");
     }
 
     @Override
@@ -40,6 +42,28 @@ public class CarDaoJdbcImpl implements CarDao {
             throw new IllegalStateException(e.getMessage());
         }
         return count;
+    }
+
+    @Override
+    public int updateCar(Car car) throws SQLException {
+        int count;
+        try {
+            updatePreparedStatement.setInt(1, car.getMileage());
+            if (car.getId() != null) {
+                updatePreparedStatement.setLong(2, car.getId());
+            }
+            else {
+                updatePreparedStatement.setLong(2, -1);
+            }
+            count = updatePreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        if (count == 1)
+            return count;
+        else
+            throw new SQLException("Car not found");
     }
 
     @Override
