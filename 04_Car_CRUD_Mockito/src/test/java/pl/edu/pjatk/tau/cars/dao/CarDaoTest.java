@@ -33,6 +33,8 @@ public class CarDaoTest {
     PreparedStatement insertStatementMock;
     @Mock
     PreparedStatement updateStatementMock;
+    @Mock
+    PreparedStatement deleteStatementMock;
 
     abstract class AbstractResultSet implements ResultSet {
         int i;
@@ -83,6 +85,7 @@ public class CarDaoTest {
         when(connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car WHERE id = ?")).thenReturn(selectByIdStatementMock);
         when(connection.prepareStatement("INSERT INTO Car (brand, model, manufacture_year, mileage) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)).thenReturn(insertStatementMock);
         when(connection.prepareStatement("UPDATE Car SET mileage = ? WHERE id = ?")).thenReturn(updateStatementMock);
+        when(connection.prepareStatement("DELETE FROM Car WHERE id = ?")).thenReturn(deleteStatementMock);
         dao = new CarDaoJdbcImpl();
         dao.setConnection(connection);
     }
@@ -120,15 +123,28 @@ public class CarDaoTest {
 
     @Test
     public void updatingTest() throws SQLException {
+        InOrder inOrder = inOrder(updateStatementMock);
         when(updateStatementMock.executeUpdate()).thenReturn(1);
 
         Car car = initialDatabaseState.get(0);
         car.setMileage(300000);
         dao.updateCar(car);
 
-        verify(updateStatementMock, times(1)).setInt(1, 300000);
-        verify(updateStatementMock, times(1)).setLong(2, 1L);
-        verify(updateStatementMock).executeUpdate();
+        inOrder.verify(updateStatementMock, times(1)).setInt(1, 300000);
+        inOrder.verify(updateStatementMock, times(1)).setLong(2, 1);
+        inOrder.verify(updateStatementMock).executeUpdate();
+    }
+
+    @Test
+    public void deletingTest() throws SQLException {
+        InOrder inOrder = inOrder(deleteStatementMock);
+        when(deleteStatementMock.executeUpdate()).thenReturn(1);
+
+        Car car = initialDatabaseState.get(0);
+        dao.deleteCar(car);
+
+        inOrder.verify(deleteStatementMock, times(1)).setLong(1, 1);
+        inOrder.verify(deleteStatementMock).executeUpdate();
     }
 
     @Test
@@ -177,5 +193,6 @@ public class CarDaoTest {
         verify(mockedResultSet, times(1)).getInt("mileage");
         verify(mockedResultSet, times(1)).next();
     }
+
 
 }
