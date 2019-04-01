@@ -1,9 +1,9 @@
-package pl.edu.pjatk.tau.domain;
+package pl.edu.pjatk.tau.cars.domain;
 
 import java.util.Objects;
 
 public class Car {
-    
+
     private Long id;
     private String brand;
     private String model;
@@ -19,14 +19,7 @@ public class Car {
         manufactureYear = car.manufactureYear;
         mileage = car.mileage;
     }
-
-    public Car(String brand, String model, int manufactureYear, int mileage) {
-        this.brand = brand;
-        this.model = model;
-        this.manufactureYear = manufactureYear;
-        this.mileage = mileage;
-    }
-
+    
     public Car(Long id, String brand, String model, int manufactureYear, int mileage) {
         this.id = id;
         this.brand = brand;
@@ -90,6 +83,17 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(id, brand, model, manufactureYear, mileage);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", manufactureYear=" + manufactureYear +
+                ", mileage=" + mileage +
+                '}';
     }
 
 }

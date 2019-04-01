@@ -1,11 +1,11 @@
-package pl.edu.pjatk.tau.dao;
+package pl.edu.pjatk.tau.cars.dao;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import pl.edu.pjatk.tau.domain.Car;
+import pl.edu.pjatk.tau.cars.domain.Car;
 
 import java.sql.*;
 import java.util.ArrayList;

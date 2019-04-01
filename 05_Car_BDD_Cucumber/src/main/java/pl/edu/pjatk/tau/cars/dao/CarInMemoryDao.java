@@ -1,13 +1,13 @@
-package pl.edu.pjatk.tau.dao;
+package pl.edu.pjatk.tau.cars.dao;
 
-import pl.edu.pjatk.tau.domain.Car;
+import pl.edu.pjatk.tau.cars.domain.Car;
 
 import java.util.List;
 import java.util.Optional;
 
-public class CarInMemoryDao implements Dao<Car> {
+public class CarInMemoryDao implements CarDao {
 
-    protected List<Car> cars;
+    public List<Car> cars;
 
     @Override
     public List<Car> getAll() {

@@ -1,6 +1,6 @@
-package pl.edu.pjatk.tau.dao;
+package pl.edu.pjatk.tau.cars.dao;
 
-import pl.edu.pjatk.tau.domain.Car;
+import pl.edu.pjatk.tau.cars.domain.Car;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.tau.dao;
+package pl.edu.pjatk.tau.cars.dao;
 
 import java.util.List;
 import java.util.Optional;
