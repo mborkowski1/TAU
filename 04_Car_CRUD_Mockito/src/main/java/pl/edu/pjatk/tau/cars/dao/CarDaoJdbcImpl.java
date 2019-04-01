@@ -10,6 +10,7 @@ public class CarDaoJdbcImpl implements CarDao {
 
     public PreparedStatement insertPreparedStatement;
     public PreparedStatement updatePreparedStatement;
+    public PreparedStatement deletePreparedStatement;
     public PreparedStatement getAllPreparedStatement;
     public PreparedStatement getCarPreparedStatement;
     Connection connection;
@@ -26,6 +27,7 @@ public class CarDaoJdbcImpl implements CarDao {
         getAllPreparedStatement = connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car ORDER BY id");
         getCarPreparedStatement = connection.prepareStatement("SELECT id, brand, model, manufacture_year, mileage FROM Car WHERE id = ?");
         updatePreparedStatement = connection.prepareStatement("UPDATE Car SET mileage = ? WHERE id = ?");
+        deletePreparedStatement = connection.prepareStatement("DELETE FROM Car WHERE id = ?");
     }
 
     @Override
@@ -56,6 +58,27 @@ public class CarDaoJdbcImpl implements CarDao {
                 updatePreparedStatement.setLong(2, -1);
             }
             count = updatePreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        if (count == 1)
+            return count;
+        else
+            throw new SQLException("Car not found");
+    }
+
+    @Override
+    public int deleteCar(Car car) throws SQLException {
+        int count;
+        try {
+            if (car.getId() != null) {
+                deletePreparedStatement.setLong(1, car.getId());
+            }
+            else {
+                deletePreparedStatement.setLong(1, -1);
+            }
+            count = deletePreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
             throw new SQLException(e.getMessage());
