@@ -39,7 +39,7 @@ public class CarInMemoryDao implements CarDao {
     public void delete(Car o) throws IllegalArgumentException {
         if (cars.stream().noneMatch(car -> car.getId().equals(o.getId())))
             throw new IllegalArgumentException("Car not exists");
-        int id = o.getId().intValue();
+        int id = o.getId().intValue() - 1;
         cars.remove(id);
     }
 

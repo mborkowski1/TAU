@@ -1,8 +1,14 @@
 Feature: Car buying
   Customer buys a car
 
-  Scenario: Customer buys a car
+  Scenario Outline: Customer buys a car
     Given Customer chooses a car
-    When Customer chose brand "Volvo"
-    And Customer chose model "XC60"
+    When Customer chose brand "<brand>"
+    And Customer chose model "<model>"
     Then Car has been sold
+  
+    Examples:
+    | brand | model |
+    | Volvo | XC60  |
+    | Audi  | A4    |
+    | BMW   | X5    | 
