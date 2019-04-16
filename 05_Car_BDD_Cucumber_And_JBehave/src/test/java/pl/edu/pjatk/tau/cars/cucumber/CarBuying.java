@@ -27,12 +27,12 @@ public class CarBuying {
                 new Car(3L, "BMW", "X5", 2016, 60_000));
     }
 
-    @When("^Customer chose brand \"([^\"]*)\"$")
+    @When("Customer chose brand {string}")
     public void customer_choose_brand(String brand) {
         choosedBrand = brand;
     }
 
-    @And("^Customer chose model \"([^\"]*)\"$")
+    @And("Customer chose model {string}")
     public void customer_chose_model(String model) {
         choosedModel = model;
     }

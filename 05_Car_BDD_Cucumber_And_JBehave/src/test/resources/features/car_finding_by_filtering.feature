@@ -8,3 +8,4 @@ Feature: Car finding by filtering
     And User sets max mileage limit filtering to 50000
     And User sets min manufacture year filtering to 2018
     Then User finds cars that meet the criteria given by him
+    But User shouldn't see cars that not meet criteria

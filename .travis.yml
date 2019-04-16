@@ -1,3 +1,4 @@
 language: java
 script:
-- cd 05_Car_BDD_Cucumber; mvn test
+- cd 05_Car_BDD_Cucumber_And_JBehave; mvn test
+

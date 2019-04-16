@@ -4,6 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.But;
 import org.junit.Assert;
 import pl.edu.pjatk.tau.cars.dao.CarInMemoryDao;
 import pl.edu.pjatk.tau.cars.domain.Car;
@@ -66,6 +67,15 @@ public class CarFindingByFiltering {
     @Then("^User finds cars that meet the criteria given by him$")
     public void user_finds_cars_that_meet_the_criteria_given_by_him() {
         Assert.assertEquals(4, filteredCars.size());
+    }
+
+    @But("^User shouldn't see cars that not meet criteria$")
+    public void user_shouldnt_see_cars_that_not_meet_criteria() {
+        Assert.assertFalse(filteredCars.contains(carInMemoryDao.getById(1L)));
+        Assert.assertFalse(filteredCars.contains(carInMemoryDao.getById(2L)));
+        Assert.assertFalse(filteredCars.contains(carInMemoryDao.getById(3L)));
+        Assert.assertFalse(filteredCars.contains(carInMemoryDao.getById(5L)));
+        Assert.assertFalse(filteredCars.contains(carInMemoryDao.getById(8L)));
     }
 
 }
