@@ -56,4 +56,13 @@ public class CarManagerTest {
         assertEquals(car.getId(), carIds.get(3));
     }
 
+    @Test
+    public void findAllTest() {
+        List<Long> foundIds = new LinkedList<>();
+        for (Car car : carManager.findAll()) {
+            if (carIds.contains(car.getId())) foundIds.add(car.getId());
+        }
+        assertEquals(carIds.size(), foundIds.size());
+    }
+
 }

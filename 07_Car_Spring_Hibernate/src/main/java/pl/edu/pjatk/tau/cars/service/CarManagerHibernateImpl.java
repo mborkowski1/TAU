@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.pjatk.tau.cars.domain.Car;
 
+import java.util.List;
+
 @Component
 @Transactional
 public class CarManagerHibernateImpl implements CarManager {
@@ -19,6 +21,11 @@ public class CarManagerHibernateImpl implements CarManager {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public List<Car> findAll() {
+        return sessionFactory.getCurrentSession().getNamedQuery("car.findAll").list();
     }
 
     @Override
