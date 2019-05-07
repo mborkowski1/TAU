@@ -1,9 +1,14 @@
 package pl.edu.pjatk.tau.cars.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Objects;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.time.LocalDate;
+
+@Data
+@EqualsAndHashCode
 @Entity(name = "Car")
 @Table(name = "car")
 @NamedQueries({
@@ -28,70 +33,8 @@ public class Car {
     @Column(name = "registration_date")
     private LocalDate registrationDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public Integer getManufactureYear() {
-        return manufactureYear;
-    }
-
-    public void setManufactureYear(Integer manufactureYear) {
-        this.manufactureYear = manufactureYear;
-    }
-
-    public Integer getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Integer mileage) {
-        this.mileage = mileage;
-    }
-
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDate registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return Objects.equals(id, car.id) &&
-                Objects.equals(brand, car.brand) &&
-                Objects.equals(model, car.model) &&
-                Objects.equals(manufactureYear, car.manufactureYear) &&
-                Objects.equals(mileage, car.mileage) &&
-                Objects.equals(registrationDate, car.registrationDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, brand, model, manufactureYear, mileage, registrationDate);
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
+    private Person person;
 
 }
