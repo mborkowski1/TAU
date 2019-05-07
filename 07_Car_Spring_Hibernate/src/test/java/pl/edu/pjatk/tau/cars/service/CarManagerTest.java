@@ -71,4 +71,11 @@ public class CarManagerTest {
         assertEquals("A4", cars.get(0).getModel());
     }
 
+    @Test
+    public void findByIdTest() {
+        Car car = carManager.findById(carIds.get(0));
+        assertNotNull(car);
+        assertEquals(car.getId(), carIds.get(0));
+    }
+
 }

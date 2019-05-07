@@ -8,6 +8,7 @@ public interface CarManager {
 
 	List<Car> findAll();
 	List<Car> findCarsByModel(String modelNameFragment);
+	Car findById(Long id);
 	Long addCar(Car car);
 
 }
