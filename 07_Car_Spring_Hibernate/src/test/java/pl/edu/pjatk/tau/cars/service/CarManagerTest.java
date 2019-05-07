@@ -65,4 +65,10 @@ public class CarManagerTest {
         assertEquals(carIds.size(), foundIds.size());
     }
 
+    @Test
+    public void findCarsByModel() {
+        List<Car> cars = carManager.findCarsByModel("A");
+        assertEquals("A4", cars.get(0).getModel());
+    }
+
 }

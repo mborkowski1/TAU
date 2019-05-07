@@ -7,6 +7,7 @@ import java.util.List;
 public interface CarManager {
 
 	List<Car> findAll();
+	List<Car> findCarsByModel(String modelNameFragment);
 	Long addCar(Car car);
 
 }

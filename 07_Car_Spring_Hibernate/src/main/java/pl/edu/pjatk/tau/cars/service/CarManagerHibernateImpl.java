@@ -29,6 +29,11 @@ public class CarManagerHibernateImpl implements CarManager {
     }
 
     @Override
+    public List<Car> findCarsByModel(String modelNameFragment) {
+        return sessionFactory.getCurrentSession().getNamedQuery("car.findCarsByModel").setParameter("modelNameFragment", "%"+modelNameFragment+"%").list();
+    }
+
+    @Override
     public Long addCar(Car car) {
         return (Long) sessionFactory.getCurrentSession().save(car);
     }
