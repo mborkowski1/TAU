@@ -66,7 +66,7 @@ public class CarManagerTest {
     }
 
     @Test
-    public void findCarsByModel() {
+    public void findCarsByModelTest() {
         List<Car> cars = carManager.findCarsByModel("A");
         assertEquals("A4", cars.get(0).getModel());
     }
@@ -76,6 +76,14 @@ public class CarManagerTest {
         Car car = carManager.findById(carIds.get(0));
         assertNotNull(car);
         assertEquals(car.getId(), carIds.get(0));
+    }
+
+    @Test()
+    public void updateCarTest() {
+        Car car = carManager.findById(carIds.get(0));
+        car.setMileage(45000);
+        carManager.updateCar(car);
+        assertEquals(Integer.valueOf(45000), carManager.findById(carIds.get(0)).getMileage());
     }
 
 }

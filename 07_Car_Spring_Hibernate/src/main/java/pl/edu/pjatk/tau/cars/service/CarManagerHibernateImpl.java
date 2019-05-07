@@ -43,4 +43,9 @@ public class CarManagerHibernateImpl implements CarManager {
         return (Long) sessionFactory.getCurrentSession().save(car);
     }
 
+    @Override
+    public void updateCar(Car car) {
+        sessionFactory.getCurrentSession().update(car);
+    }
+
 }

@@ -10,5 +10,6 @@ public interface CarManager {
 	List<Car> findCarsByModel(String modelNameFragment);
 	Car findById(Long id);
 	Long addCar(Car car);
+	void updateCar(Car car);
 
 }
