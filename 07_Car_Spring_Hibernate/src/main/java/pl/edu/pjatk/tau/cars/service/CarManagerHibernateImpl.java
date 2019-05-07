@@ -48,4 +48,10 @@ public class CarManagerHibernateImpl implements CarManager {
         sessionFactory.getCurrentSession().update(car);
     }
 
+    @Override
+    public void deleteCar(Car car) {
+        car = sessionFactory.getCurrentSession().get(Car.class, car.getId());
+        sessionFactory.getCurrentSession().delete(car);
+    }
+
 }

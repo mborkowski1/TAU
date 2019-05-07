@@ -86,4 +86,14 @@ public class CarManagerTest {
         assertEquals(Integer.valueOf(45000), carManager.findById(carIds.get(0)).getMileage());
     }
 
+    @Test
+    public void deleteCarTest() {
+        int prevSize = carManager.findAll().size();
+        Car car = carManager.findById(carIds.get(0));
+        assertNotNull(car);
+        carManager.deleteCar(car);
+        assertNull(carManager.findById(carIds.get(0)));
+        assertEquals(prevSize - 1, carManager.findAll().size());
+    }
+
 }

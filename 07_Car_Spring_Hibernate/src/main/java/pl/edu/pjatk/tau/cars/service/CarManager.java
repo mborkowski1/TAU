@@ -11,5 +11,6 @@ public interface CarManager {
 	Car findById(Long id);
 	Long addCar(Car car);
 	void updateCar(Car car);
+	void deleteCar(Car car);
 
 }
