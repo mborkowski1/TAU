@@ -31,7 +31,7 @@ public class Car {
     private LocalDate registrationDate;
 
     @JsonIgnoreProperties("cars")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id")
     private Person person;
 
@@ -108,6 +108,18 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(id, brand, model, manufactureYear, mileage, registrationDate, person);
+    }
+
+    public Car clone() {
+        Car c = new Car();
+        c.id = id;
+        c.brand = brand;
+        c.model = model;
+        c.manufactureYear = manufactureYear;
+        c.mileage = mileage;
+        c.registrationDate = registrationDate;
+        c.person = person;
+        return c;
     }
 
 }
