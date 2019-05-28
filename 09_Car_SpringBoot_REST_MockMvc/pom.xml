@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.edu.pjatk.tau.cars</groupId>
-    <artifactId>08_Car_SpringBoot_REST</artifactId>
+    <artifactId>09_Car_SpringBoot_REST_MockMvc</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>08_Car_SpringBoot_REST</name>
+    <name>09_Car_SpringBoot_REST_MockMvc</name>
 
     <properties>
         <org.hibernate.version>5.1.6.Final</org.hibernate.version>
@@ -74,4 +74,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
