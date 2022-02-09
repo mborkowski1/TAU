@@ -10,7 +10,7 @@
 
     <properties>
         <org.springframework.version>5.1.6.RELEASE</org.springframework.version>
-        <org.hibernate.version>5.4.2.Final</org.hibernate.version>
+        <org.hibernate.version>5.4.24.Final</org.hibernate.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
