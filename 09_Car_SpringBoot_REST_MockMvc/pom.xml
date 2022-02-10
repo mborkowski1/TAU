@@ -9,7 +9,7 @@
     <name>09_Car_SpringBoot_REST_MockMvc</name>
 
     <properties>
-        <org.hibernate.version>5.1.6.Final</org.hibernate.version>
+        <org.hibernate.version>5.4.24.Final</org.hibernate.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
